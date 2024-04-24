@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/View/Shared/_Layout.cshtml";
+}
+
+<button class="btn btn-sm btn-primary m-2" id="btnAddCategiry"> Add Category</button>
+<table class="table table-border"> 
+    <thead>
+        <tr class="text-center">
+            <th>Id</th>
+            <th>Name</th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="text-center" id="table_data"></tbody>
+</table>
+
+<div>
+    <input type="hidden" id="urlCategoryData" value="@Url.Action("CategoryList","Category")" />
+</div>
