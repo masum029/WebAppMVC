@@ -14,7 +14,6 @@ namespace WebAppMVC.Controllers
             return View();
         }
 
-
         public JsonResult CategryList()
         {
             var data= _inventoryContext.Categories.ToList();

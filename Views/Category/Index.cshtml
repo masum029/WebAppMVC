@@ -3,7 +3,7 @@
 *@
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/View/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <button class="btn btn-sm btn-primary m-2" id="btnAddCategiry"> Add Category</button>
@@ -11,8 +11,7 @@
     <thead>
         <tr class="text-center">
             <th>Id</th>
-            <th>Name</th>
-           
+            <th>Name</th>           
             <th></th>
         </tr>
     </thead>
@@ -22,3 +21,8 @@
 <div>
     <input type="hidden" id="urlCategoryData" value="@Url.Action("CategoryList","Category")" />
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/js/inventory/category.js"></script>
