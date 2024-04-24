@@ -1,0 +1,46 @@
+﻿
+Creating an inventory database schema in SQL involves defining the relationships between different tables. In this example, I'll create a simple inventory system that includes one-to-one, one-to-many, and many-to-many relationships. I'll also provide the corresponding C# models to represent these relationships.
+
+SQL Schema
+Here is the SQL schema that incorporates all three types of relationships:
+
+One-to-One Relationship: Between Product and ProductDetail.
+One-to-Many Relationship: Between Category and Product.
+Many-to-Many Relationship: Between Product and Supplier via an intermediate table ProductSupplier.
+
+-- Category table
+CREATE TABLE Category (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(100) NOT NULL
+);
+
+-- Product table
+CREATE TABLE Product (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100) NOT NULL,
+    CategoryID INT,
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+);
+
+-- ProductDetail table (One-to-One with Product)
+CREATE TABLE ProductDetail (
+    ProductID INT PRIMARY KEY,
+    Description VARCHAR(255),
+    Weight DECIMAL(10, 2),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+);
+
+-- Supplier table
+CREATE TABLE Supplier (
+    SupplierID INT PRIMARY KEY,
+    SupplierName VARCHAR(100) NOT NULL
+);
+
+-- ProductSupplier table (Many-to-Many between Product and Supplier)
+CREATE TABLE ProductSupplier (
+    ProductID INT,
+    SupplierID INT,
+    PRIMARY KEY (ProductID, SupplierID),
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
+);
