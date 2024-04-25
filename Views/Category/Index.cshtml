@@ -1,4 +1,5 @@
-﻿@*
+﻿@model WebAppMVC.Models.Category
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -6,7 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<button class="btn btn-sm btn-primary m-2" id="btnAddCategiry"> Add Category</button>
+<button class="btn btn-sm btn-primary m-2" id="btnAddCategory"> Add Category</button>
 <table class="table table-border"> 
     <thead>
         <tr class="text-center">
@@ -18,8 +19,28 @@
     <tbody class="text-center" id="table_data"></tbody>
 </table>
 
-<div>
-    <input type="hidden" id="urlCategoryData" value="@Url.Action("CategoryList","Category")" />
+
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" asp-for="CategoryID" value="0" />
+                <div class="mb-2">
+                    <label asp-for="CategoryName">Enter Category Name</label>
+                    <input type="text" asp-for="CategoryName" class="form-control" placeholder="Category Name"></input>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="save" type="submit" onclick="Insert()">Add </button>
+                <button class="btn btn-warning" id="update" type="submit" onclick="Update()">Update</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
