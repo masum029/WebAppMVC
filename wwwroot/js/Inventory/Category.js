@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿const { get } = require("jquery");
+
+$(document).ready(function () {
     GetCategory();
 });
 
@@ -102,6 +104,34 @@ function Insert() {
         },
         error: function () {
             alert('Unable to save the data');
+        }
+    });
+}
+
+
+function Edit(id) {
+    $.ajax({
+        url: '/category/Edit',
+        type: get,
+        contentType: 'application/json;charset=utf-8',
+        dataType: 'json',
+
+        success: function (response) {
+            if (response == null || response == undefined) {
+                alert('Unable to read the data');
+            }
+            else if (response.length == 0) {
+                alert('No record found with the id' + id)
+            }
+            else {
+                $('#addCategoryModal').modal('show');
+                $('#addCategoryModalLabel').text('Update Category');
+                $('#save').css('display', 'none');
+                $('#update').css('display', 'block');
+                $('#')
+            }
+        }, error: function () {
+
         }
     });
 }
