@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebAppMVC.Models;
 
 namespace WebAppMVC.Controllers
@@ -60,7 +61,7 @@ namespace WebAppMVC.Controllers
                 {
                     _inventoryContext.Categories.Update(category);
                     _inventoryContext.SaveChanges();
-                    return Json("Product Details Updated.");
+                    return Json("Category Updated Successfully.");
                 }
                 return Json("Update Failed");
             }
@@ -70,10 +71,17 @@ namespace WebAppMVC.Controllers
                 throw;
             }
         }
-        //public JsonResult Delete(int id)
-        //{
-        //    var category = _inventoryContext.Categories.Find(x => x.CategoryID == id);
-        //    return Json(category);
-        //}
+        public JsonResult Delete(int id)
+        {
+            var category = _inventoryContext.Categories.Find(id);
+            if (category !=null)
+            {
+                _inventoryContext.Categories.Remove(category);
+                _inventoryContext.SaveChanges();
+
+                return Json("Data Deleted successfully");
+            }
+            return Json("Unable to Delete.");
+        }
     }
 }

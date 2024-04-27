@@ -31,13 +31,13 @@
                 <input type="hidden" asp-for="CategoryID" value="0" />
                 <div class="mb-2">
                     <label asp-for="CategoryName">Enter Category Name</label>
-                    <input type="text" asp-for="CategoryName" class="form-control" placeholder="Category Name"></input>
+                    <input type="text" asp-for="CategoryName" class="form-control" placeholder="Category Name"/>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" id="save" type="submit" onclick="Insert()">Add </button>
-                <button class="btn btn-warning" id="update" type="submit" onclick="Update()">Update</button>
+                @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+                <button class="btn btn-primary" id="save" type="submit" onclick="Insert()">Save </button>
+                <button class="btn btn-warning disabled" id="update"  type="submit" onclick="Update()">Update</button>
             </div>
         </div>
     </div>
@@ -47,3 +47,4 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <script src="~/js/inventory/category.js"></script>
+@* <script src="~/js/inventory/Categorygpt.js"></script> *@

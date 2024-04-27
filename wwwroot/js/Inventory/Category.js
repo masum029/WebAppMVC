@@ -1,4 +1,4 @@
-﻿const { get } = require("jquery");
+﻿//const { get } = require("jquery");
 
 $(document).ready(function () {
     GetCategory();
@@ -26,10 +26,11 @@ function GetCategory() {
                 var obj = '';
 
                 $.each(response, function (index, item) {
+                    debugger
                     obj += '<tr>'
                     obj += '<td>' + item.categoryID + '</td>';
                     obj += '<td>' + item.categoryName + '</td>';
-                    obj += '<td><a href="#" class="btn btn-sm btn-success" onclick="Edit(' + item.CategoryID + ')">Edit</a> | <a href="#" class="btn btn-sm btn-danger" onclick=Delete(' + item.CategoryID + ')>Delete</a></td>';
+                    obj += '<td><a class="btn btn-sm btn-success" onclick="Edit(' + item.categoryID + ')">Edit</a> | <a href="#" class="btn btn-sm btn-danger" onclick=Delete(' + item.categoryID + ')>Delete</a></td>';
                     obj += '</tr>'
 
                 });
@@ -52,6 +53,8 @@ $('#btnAddCategory').click(function () {
 
 function HideModal() {
     clearData();
+    $('#save').css('display', 'block');
+    $('#update').css('display', 'none');
     $('#addCategoryModal').modal('hide');
 }
 
@@ -109,10 +112,11 @@ function Insert() {
 }
 
 
-function Edit(id) {
+function Edit(CategoryID) {
+    debugger
     $.ajax({
-        url: '/category/Edit',
-        type: get,
+        url: 'Category/Edit?id=' + CategoryID,
+        type: 'get',
         contentType: 'application/json;charset=utf-8',
         dataType: 'json',
 
@@ -124,14 +128,79 @@ function Edit(id) {
                 alert('No record found with the id' + id)
             }
             else {
+                debugger
                 $('#addCategoryModal').modal('show');
                 $('#addCategoryModalLabel').text('Update Category');
-                $('#save').css('display', 'none');
+                $('#save').css('display', 'none');          
+                $('#update').removeClass('disabled');
                 $('#update').css('display', 'block');
-                $('#')
+                $('#CategoryID').val(response.categoryID);
+                $('#CategoryName').val(response.categoryName);
             }
         }, error: function () {
 
+        }
+    });
+}
+
+function Update() {
+    debugger
+
+    var result = validate();
+    if (result == false) {
+        return false;
+    }
+    var fromData = new Object();
+    fromData.CategoryID = $('#CategoryID').val();
+    fromData.categoryName = $('#CategoryName').val();
+
+
+    $.ajax({
+        url: '/category/Update',
+        data: fromData,
+        type: 'post',
+
+        success: function (response) {
+            if (response == null || response == undefined || response.length == 0) {
+
+                alert("Unable to save data.")
+            } else {
+                HideModal();
+                GetCategory();
+                alert(response);
+            }
+        },
+        error: function () {
+            alert('Unable to save the data');
+        }
+    });
+}
+
+
+function Delete(CategoryID) {
+    debugger
+
+    if (confirm('Are you sure to delete this record?')) {
+
+    }
+    $.ajax({
+        url: 'Category/Delete?id=' + CategoryID,
+        type: 'post',
+   
+
+        success: function (response) {
+            if (response == null || response == undefined) {
+                alert('Unable to read the data');
+            }
+            else if (response.length == 0) {
+                alert('No record found with the id' + id)
+            }
+            else {
+                GetCategory();
+                alert(response);
+            }
+        }, error: function () {
+            alert('Error Occourd');
         }
     });
 }
