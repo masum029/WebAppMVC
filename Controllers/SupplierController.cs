@@ -13,16 +13,25 @@ namespace WebAppMVC.Controllers
             _context = context;
         }
 
-        public IActionResult SuppliersList()
+        public JsonResult SuppliersList()
         {
-            return View();
+            try
+            {
+                var data = _context.Suppliers.ToList();
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
         // GET: Supplier
         public async Task<IActionResult> Index()
         {
-            var suppliers = await _context.Suppliers.ToListAsync();
-            return View(suppliers);
+            //var suppliers = await _context.Suppliers.ToListAsync();
+            return View();
         }
 
         // GET: Supplier/Create
